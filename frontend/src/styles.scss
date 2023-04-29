@@ -2,3 +2,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Common Sidebar */
+.sidebar-slider {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 30%;
+    background-color: var(--right-sidemenu);
+    transform: translateX(100%);
+    transition: ease-in-out 500ms transform;
+    z-index: 1001;
+    // background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+    // transform: translateX(100%);
+    // transition: ease-in-out 300ms transform;
+    // width: 35%;
+  }
+  .sidebar-slider.sidebar-slide-in {
+    transform: translateX(0%);
+    transition: ease-in-out 500ms transform;
+  
+    // transform: translateX(0%);
+    // transition: ease-in-out 600ms transform;
+  }
+  .sidebar-close {
+    background-color: var(--right-sidemenu-close);
+  }

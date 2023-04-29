@@ -1,1 +1,36 @@
-<p>register works!</p>
+<section class="w-full flex justify-center items-center">
+
+    <form [formGroup]="registerForm" class="w-1/4 bg-cyan-500 shadow-lg shadow-cyan-500/50 bg-white shadow-md rounded px-8 pt-6 pb-8 mt-5 " (ngSubmit)="onSubmit()">
+        <span class="gilory-medium text-3xl mb-5">Register</span>
+        <div class="mt-4 mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" >Name</label>
+            
+            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="floatingInput" placeholder="name" formControlName="name"  [ngClass]="{ 'is-invalid': submitted && f.name.errors }"  id="inputNamel4">
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+              <div class="text-red-500 text-xs italic" *ngIf="f.name.errors.required">Name is required</div>
+           </div>
+          </div>                  
+        <div class=" mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" >Email address</label>
+        
+            <input type="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="floatingInput" placeholder="name@example.com" formControlName="email"  [ngClass]="{ 'is-invalid': submitted && f.email.errors }"  id="inputEmail4">
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div class="text-red-500 text-xs italic" *ngIf="f.email.errors.required">Email is required</div>
+          <div class="text-red-500 text-xs italic" *ngIf="f.email.errors.email">Email must be a valid email address</div>
+       </div>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+        
+        <input type="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="floatingPassword" placeholder="Password" formControlName="password"[ngClass]="{ 'is-invalid': submitted && f.password.errors }" id="inputPassword4">
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div lass="text-red-500 text-xs italic" *ngIf="f.password.errors.required">Password is required</div>
+       </div>
+      </div>
+      <span class="gilory-medium text-xs">* Already registered ? <a routerLink="/login" class="text-red-500 text-xs italic underline">Login</a>
+      </span><br>
+      <button type="submit" class="ml-20 rounded-lg bg-white p-2 mt-2 roundedBorder">
+        Register
+      </button>
+    </form>
+</section>

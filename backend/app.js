@@ -20,6 +20,8 @@ const mongoose = require('mongoose');
 
 mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
 console.log('Connected to MongoDB');
+}).catch(err=>{
+  console.log(err)
 });
 
 var app = express();

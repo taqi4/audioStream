@@ -1,1 +1,44 @@
-<p>add-audio works!</p>
+<section class="w-full flex justify-center items-center">
+
+    <form [formGroup]="audioForm" class="w-1/4 bg-cyan-500 shadow-lg shadow-cyan-500/50 bg-white shadow-md rounded px-8 pt-6 pb-8 mt-5 " (ngSubmit)="onSubmit()">
+        <span class="gilory-medium text-3xl mb-5">Add Song</span>
+                          
+        <div class=" mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" >Name</label>
+        
+            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="floatingInput" placeholder="name" formControlName="name"  [ngClass]="{ 'is-invalid': submitted && f.name.errors }"  id="inputEmail4">
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div class="text-red-500 text-xs italic" *ngIf="f.name.errors.required">Name is required</div>
+       </div>
+      </div>
+      <div class=" mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" >Description</label>
+    
+        <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="floatingInput" placeholder="Description" formControlName="description"  [ngClass]="{ 'is-invalid': submitted && f.description.errors }"  id="inputEmail4">
+    <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+      <div class="text-red-500 text-xs italic" *ngIf="f.description.errors.required">Description is required</div>
+   </div>
+   
+     </div>
+     <div class=" mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" >Upload image</label>
+    
+        <input type="file" accept=".png,.jpg,.jpeg" (change)="getImageFileDetails($event)" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="floatingInput" placeholder="Choose image" formControlName="image"  [ngClass]="{ 'is-invalid': submitted && f.image.errors }"  id="inputEmail4">
+    <div *ngIf="submitted && f.image.errors" class="invalid-feedback">
+      <div class="text-red-500 text-xs italic" *ngIf="f.image.errors.required">Image is required</div>
+   </div>
+  </div>
+  <div class=" mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" >Upload Audio</label>
+
+    <input type="file" accept=".mp3,.wav" (change)="getAudioFileDetails($event)" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="floatingInput" placeholder="Choose audio" formControlName="audio"  [ngClass]="{ 'is-invalid': submitted && f.audio.errors }"  id="inputEmail4">
+<div *ngIf="submitted && f.audio.errors" class="invalid-feedback">
+  <div class="text-red-500 text-xs italic" *ngIf="f.audio.errors.required">Audio is required</div>
+</div>
+</div>
+      
+      <button type="submit" class="ml-20 rounded-lg bg-white p-2 mt-2 roundedBorder">
+        Add Song
+      </button>
+    </form>
+</section>

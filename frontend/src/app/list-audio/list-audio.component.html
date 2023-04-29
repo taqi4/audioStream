@@ -1,1 +1,192 @@
-<p>list-audio works!</p>
+<div class="w-full overflow-hidden rounded-lg shadow-xs">
+    <div class="w-full overflow-x-auto">
+      <table class="w-full whitespace-no-wrap">
+        <thead>
+          <tr
+            class="
+              text-xs font-semibold tracking-wide
+              text-left text-gray-500 uppercase
+              border-b bg-gray-50
+            "
+          >
+            <th class="px-4 py-3">#</th>
+            <th class="px-4 py-3">Name</th>
+            <th class="px-4 py-3">Description</th>
+            <th class="px-4 py-3">Image</th>
+            <th class="px-4 py-3">Audio</th>
+            <th class="px-4 py-3">Action</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y">
+            <ng-container *ngIf="isLoading">
+                <tr class="animate-pulse text-gray-700">
+                    <td class="px-4 py-3">1</td>
+                    <td class="px-4 py-3">Item 1</td>
+                    <td class="px-4 py-3">Description 1</td>
+                    <td class="px-4 py-3">
+                      <img src="https://via.placeholder.com/50" alt="Item 1">
+                    </td>
+                    <td class="px-4 py-3">
+                      <audio controls>
+                        <source src="audio/item1.mp3" type="audio/mpeg">
+                      </audio>
+                    </td>
+                    <td class="px-4 py-3">
+                      <div class="flex items-center">
+                        <button
+                          class="
+                            py-1 px-2 rounded-md text-white
+                            bg-blue-500 hover:bg-blue-600
+                          "
+                        >
+                          Edit
+                        </button>
+                        <button
+                          class="
+                            ml-2 py-1 px-2 rounded-md text-white
+                            bg-red-500 hover:bg-red-600
+                          "
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="animate-pulse text-gray-700">
+                    <td class="px-4 py-3">1</td>
+                    <td class="px-4 py-3">Item 1</td>
+                    <td class="px-4 py-3">Description 1</td>
+                    <td class="px-4 py-3">
+                      <img src="https://via.placeholder.com/50" alt="Item 1">
+                    </td>
+                    <td class="px-4 py-3">
+                      <audio controls>
+                        <source src="audio/item1.mp3" type="audio/mpeg">
+                      </audio>
+                    </td>
+                    <td class="px-4 py-3">
+                      <div class="flex items-center">
+                        <button
+                          class="
+                            py-1 px-2 rounded-md text-white
+                            bg-blue-500 hover:bg-blue-600
+                          "
+                        >
+                          Edit
+                        </button>
+                        <button
+                          class="
+                            ml-2 py-1 px-2 rounded-md text-white
+                            bg-red-500 hover:bg-red-600
+                          "
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+            </ng-container>
+            
+           <tr  *ngFor="let row of audioList  | paginate: { itemsPerPage: perPage, currentPage: pageNumber, totalItems: totalRecords };index as i" class="text-gray-700">
+            <td class="px-4 py-3">{{((pageNumber-1)*perPage )+ i+1}}</td>
+            <td class="px-4 py-3">{{row.name}}</td>
+            <td class="px-4 py-3">{{row.description}}</td>
+            <td class="px-4 py-3">
+              <img width="48" height="48" [src]="environment.baseUrl+'uploads/'+row.imgPath" alt="Item 2">
+            </td>
+            <td class="px-4 py-3">
+              <audio controls>
+                <source [src]="environment.baseUrl+'uploads/'+row.audioPath" type="audio/mpeg">
+              </audio>
+            </td>
+            <td class="px-4 py-3">
+              <div class="flex items-center">
+                <button
+                  class="
+                    py-1 px-2 rounded-md text-white
+                    bg-blue-500 hover:bg-blue-600
+                  " (click)="editAudio(row)"
+                >
+                  Edit
+                </button>
+                <button
+                  class="
+                    ml-2 py-1 px-2 rounded-md text-white
+                    bg-red-500 hover:bg-red-600
+                  " (click)="deleteAudio(row.id)"
+                >
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr> 
+        </tbody>
+      </table>
+      <!-- Pagination -->
+      <div class="flex items-center mt-4">
+        <div class="w-1/2">
+            <label class="text-gray-400">Showing &nbsp;
+                <select (change)= "loadAudioList()" [(ngModel)]="perPage" class="p-2 bg-slate-200 text-gray-900 rounded outline-none">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>&nbsp;
+                of &nbsp;{{totalRecords}}
+            </label>
+        </div>
+        <div class="w-1/2 text-right">
+            <pagination-controls class="custom-pagination" (pageChange)="pageNumber = $event;loadAudioList()" previousLabel="First"
+                nextLabel="Last"></pagination-controls>
+        </div>
+    </div>
+    </div>
+  </div>
+  <div class="sidebar-slider creatChatbotSlider fixed top-4 right-0 w-64 h-full p-5 z-30 overflow-auto"
+    [class.sidebar-slide-in]="showSideBar">
+   
+    <button class="grow float-right sidebar-close w-8 h-8 rounded-md text-sm gilory-medium"
+        (click)="closeForm();">
+        X
+    </button>
+    <form action="#" method="POST" [formGroup]="editAudioForm" (ngSubmit)="editFormSubmit()" autocomplete="off">
+        <div class="px-3">
+            <div class="flex items-center justify-center bottomBorder pb-5">
+                <!-- <img src="assets/dashboard/total-bot.png"> -->
+                <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle opacity="0.1" cx="23" cy="23" r="23" fill="#F24861" />
+                    <path
+                        d="M20.4999 25.5001C20.3351 25.5001 20.174 25.549 20.0369 25.6405C19.8999 25.7321 19.7931 25.8622 19.73 26.0145C19.6669 26.1668 19.6504 26.3343 19.6826 26.496C19.7148 26.6576 19.7941 26.8061 19.9107 26.9227C20.0272 27.0392 20.1757 27.1186 20.3373 27.1507C20.499 27.1829 20.6665 27.1664 20.8188 27.1033C20.9711 27.0402 21.1012 26.9334 21.1928 26.7964C21.2844 26.6593 21.3333 26.4982 21.3333 26.3334C21.3333 26.1124 21.2455 25.9004 21.0892 25.7442C20.9329 25.5879 20.7209 25.5001 20.4999 25.5001ZM14.6666 24.6667C14.4456 24.6667 14.2336 24.7545 14.0773 24.9108C13.921 25.0671 13.8333 25.2791 13.8333 25.5001V27.1667C13.8333 27.3878 13.921 27.5997 14.0773 27.756C14.2336 27.9123 14.4456 28.0001 14.6666 28.0001C14.8876 28.0001 15.0996 27.9123 15.2558 27.756C15.4121 27.5997 15.4999 27.3878 15.4999 27.1667V25.5001C15.4999 25.2791 15.4121 25.0671 15.2558 24.9108C15.0996 24.7545 14.8876 24.6667 14.6666 24.6667ZM31.3333 24.6667C31.1122 24.6667 30.9003 24.7545 30.744 24.9108C30.5877 25.0671 30.4999 25.2791 30.4999 25.5001V27.1667C30.4999 27.3878 30.5877 27.5997 30.744 27.756C30.9003 27.9123 31.1122 28.0001 31.3333 28.0001C31.5543 28.0001 31.7662 27.9123 31.9225 27.756C32.0788 27.5997 32.1666 27.3878 32.1666 27.1667V25.5001C32.1666 25.2791 32.0788 25.0671 31.9225 24.9108C31.7662 24.7545 31.5543 24.6667 31.3333 24.6667ZM27.1666 18.8334H23.8333V17.7667C24.0851 17.6213 24.2946 17.4125 24.4408 17.1611C24.587 16.9096 24.6648 16.6243 24.6666 16.3334C24.6666 15.8914 24.491 15.4675 24.1784 15.1549C23.8659 14.8423 23.4419 14.6667 22.9999 14.6667C22.5579 14.6667 22.134 14.8423 21.8214 15.1549C21.5088 15.4675 21.3333 15.8914 21.3333 16.3334C21.335 16.6243 21.4128 16.9096 21.559 17.1611C21.7052 17.4125 21.9147 17.6213 22.1666 17.7667V18.8334H18.8333C18.1702 18.8334 17.5343 19.0968 17.0655 19.5656C16.5966 20.0345 16.3333 20.6704 16.3333 21.3334V28.8334C16.3333 29.4965 16.5966 30.1323 17.0655 30.6012C17.5343 31.07 18.1702 31.3334 18.8333 31.3334H27.1666C27.8296 31.3334 28.4655 31.07 28.9344 30.6012C29.4032 30.1323 29.6666 29.4965 29.6666 28.8334V21.3334C29.6666 20.6704 29.4032 20.0345 28.9344 19.5656C28.4655 19.0968 27.8296 18.8334 27.1666 18.8334ZM24.4333 20.5001L24.0166 22.1667H21.9833L21.5666 20.5001H24.4333ZM27.9999 28.8334C27.9999 29.0544 27.9121 29.2664 27.7558 29.4227C27.5996 29.579 27.3876 29.6667 27.1666 29.6667H18.8333C18.6122 29.6667 18.4003 29.579 18.244 29.4227C18.0877 29.2664 17.9999 29.0544 17.9999 28.8334V21.3334C17.9999 21.1124 18.0877 20.9004 18.244 20.7442C18.4003 20.5879 18.6122 20.5001 18.8333 20.5001H19.8499L20.4999 23.2001C20.5455 23.385 20.6531 23.5487 20.8047 23.6639C20.9564 23.7791 21.1429 23.839 21.3333 23.8334H24.6666C24.8569 23.839 25.0435 23.7791 25.1951 23.6639C25.3467 23.5487 25.4543 23.385 25.4999 23.2001L26.1499 20.5001H27.1666C27.3876 20.5001 27.5996 20.5879 27.7558 20.7442C27.9121 20.9004 27.9999 21.1124 27.9999 21.3334V28.8334ZM25.4999 25.5001C25.3351 25.5001 25.174 25.549 25.0369 25.6405C24.8999 25.7321 24.7931 25.8622 24.73 26.0145C24.6669 26.1668 24.6504 26.3343 24.6826 26.496C24.7148 26.6576 24.7941 26.8061 24.9107 26.9227C25.0272 27.0392 25.1757 27.1186 25.3373 27.1507C25.499 27.1829 25.6665 27.1664 25.8188 27.1033C25.9711 27.0402 26.1012 26.9334 26.1928 26.7964C26.2844 26.6593 26.3333 26.4982 26.3333 26.3334C26.3333 26.1124 26.2455 25.9004 26.0892 25.7442C25.9329 25.5879 25.7209 25.5001 25.4999 25.5001Z"
+                        fill="#F46177" />
+                </svg>
+                <span class="ml-3 text-lg gilory-bold">Edit song</span>
+            </div>
+                <span class="gilory-medium text-3xl mb-5">Add Song</span>
+                                  
+                <div class=" mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" >Name</label>
+                
+                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="floatingInput" placeholder="name" formControlName="name"  [ngClass]="{ 'is-invalid': submitted && f.name.errors }"  id="inputEmail4">
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                  <div class="text-red-500 text-xs italic" *ngIf="f.name.errors.required">Name is required</div>
+               </div>
+              </div>
+              <div class=" mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" >Description</label>
+            
+                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="floatingInput" placeholder="Description" formControlName="description"  [ngClass]="{ 'is-invalid': submitted && f.description.errors }"  id="inputEmail4">
+            <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+              <div class="text-red-500 text-xs italic" *ngIf="f.description.errors.required">Description is required</div>
+           </div>
+           
+             </div>
+             
+              
+              <button type="submit" class="ml-20 rounded-lg bg-white p-2 mt-2 roundedBorder">
+                Update song
+              </button>
+            
+            
+        </div>
+    </form>
+</div>

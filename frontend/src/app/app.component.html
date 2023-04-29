@@ -1,3 +1,23 @@
 <section>
+  <!--Nav bar -->
   
+  <nav *ngIf="localStorage.getItem('token')?.length" class="bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class=" flex items-center">
+          <a href="#" class="text-white font-bold text-xl">Logo</a>
+        </div>
+        <div class="flex items-center">
+          <a routerLinkActive="text-blue-300 underline" routerLink="/list-audio" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">List Song</a>
+          <a routerLinkActive="text-blue-300 underline" routerLink="/add-audio" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Add Song</a>
+          <a routerLinkActive="text-blue-300 underline" routerLink="/login" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</a>
+          
+          <span class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">hi , {{userInfo.name}}</span>
+        </div>
+        
+      </div>
+    </div>
+  </nav>
+  
+  <router-outlet></router-outlet>
 </section>
