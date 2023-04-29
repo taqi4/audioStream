@@ -5,11 +5,12 @@
 
 /* Common Sidebar */
 .sidebar-slider {
+    @apply bg-cyan-500;
     top: 0;
     right: 0;
     bottom: 0;
     width: 30%;
-    background-color: var(--right-sidemenu);
+    background-color: cyan;
     transform: translateX(100%);
     transition: ease-in-out 500ms transform;
     z-index: 1001;
